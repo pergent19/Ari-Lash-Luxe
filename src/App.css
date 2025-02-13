@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+/* .app-container {
+  padding-left: 100px;
+  padding-right: 100px;
+} */
+
+.logo {
+  width: 147px;
+}
+
+.landing-bg {
+  height: 100vh;
+}
+
