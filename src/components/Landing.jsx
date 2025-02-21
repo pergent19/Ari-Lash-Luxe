@@ -9,10 +9,10 @@ export default function Landing() {
         style={{ backgroundImage: `url(${landing})` }}
       >
         <div className="flex flex-col justify-center items-start h-full pl-10 space-y-8">
-          <p className="text-white text-[30px] sm:text-[40px] font-bold">
+          <p className="text-white text-[30px] sm:text-[40px]  md:text-[20px] inter-bold">
             WELCOME TO THE NEW ERA
           </p>
-          <h1 className="text-white text-[40px] sm:text-[60px] md:text-[80px] font-bold">
+          <h1 className="text-white text-[40px] sm:text-[60px] md:text-[52px] inter-bold">
             LASHES IN MINUTES, <br /> NOT HOURS
           </h1>
           <a
