@@ -8,6 +8,7 @@ export default function Facial() {
       <div
         className="w-[40%] flex items-center justify-center bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${facial})` }}
+        data-testid="facial-bg"
       >
       </div>
       {/* Left Column (60%) */}
