@@ -8,7 +8,7 @@ export default function Landing() {
         className="h-screen bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${landing})` }}
       >
-        <div className="flex flex-col justify-center items-start h-full pl-10 space-y-8">
+        <div className="flex flex-col justify-center items-start h-full landing space-y-8">
           <p className="text-white text-[30px] sm:text-[40px]  md:text-[20px] inter-bold">
             WELCOME TO THE NEW ERA
           </p>
