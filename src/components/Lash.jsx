@@ -6,9 +6,9 @@ export default function Lash() {
     <div className="h-screen flex">
       {/* Left Column (40%) */}
       <div className="w-[40%] flex flex-col items-center justify-center space-y-4">
-        <h2 className="text-2xl inter-bold">LASH EXTENSION</h2>
-        <h2 className="text-2xl text-center romanesco-regular">
-          Enhance your beauty with lush, customized lash extensions for a
+        <h2 className="text-3xl inter-bold">LASH EXTENSION</h2>
+        <h2 className="text-3xl text-center romanesco-regular">
+          Enhance your beauty with lush, customized <br /> lash extensions for a
           flawless look.
         </h2>
         <a
