@@ -1,5 +1,5 @@
 import React from 'react'
-import nails from "@/assets/images/lash.jpg";
+import nails from "@/assets/images/nails.jpg";
 
 export default function Nails() {
   return (
