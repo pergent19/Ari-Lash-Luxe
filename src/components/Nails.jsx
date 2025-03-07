@@ -20,6 +20,7 @@ export default function Nails() {
     
           {/* Right Column (60%) */}
           <div
+            data-testid="nails-bg"
             className="w-[60%] flex items-center justify-center bg-cover bg-center bg-no-repeat"
             style={{ backgroundImage: `url(${nails})` }}
           >

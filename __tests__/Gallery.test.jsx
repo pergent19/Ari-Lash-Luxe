@@ -23,7 +23,6 @@ describe("Gallery Component", () => {
 
   test("has correct background image", () => {
     const divElement = screen.getByTestId('gallery-container'); 
-
     expect(divElement).toHaveStyle(`background-image: url(mock-image-path)`);
   });
 });

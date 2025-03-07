@@ -21,6 +21,7 @@ export default function Lash() {
 
       {/* Right Column (60%) */}
       <div
+        data-testid="lash-bg"
         className="w-[60%] flex items-center justify-center bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${lash})` }}
       >

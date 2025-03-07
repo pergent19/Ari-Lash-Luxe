@@ -1,32 +1,34 @@
 import "@testing-library/jest-dom";
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, cleanup } from "@testing-library/react";
 import Facial from "../src/components/Facial"
 jest.mock("@/assets/images/facial.jpg", () => "mock-image-path");
 
 
 describe("Facial Component", () => {
-  test("renders the FACIALS heading", () => {
-    render(<Facial />);
-    expect(screen.getByText("FACIALS")).toBeInTheDocument();
-  });
-  test("renders the description", () => {
-    render(<Facial />);
-    expect(
-      screen.getByText(
-        /Revitalize your skin with facials designed to cleanse, hydrate, and restore your natural glow./i
-      )
-    ).toBeInTheDocument();
+    beforeEach(() => {
+      render(<Facial />);
+    });
+  
+    afterEach(() => {
+      cleanup();
+    });
+  test("renders the FACIALS component", () => {
+    const heading = screen.getByText("FACIALS");
+    expect(heading).toBeInTheDocument();
+
+    const description = screen.getByText(
+      /Revitalize your skin with facials designed to cleanse, hydrate, and restore your natural glow./i
+    );
+    expect(description).toBeInTheDocument();
+
+    const button = screen.getByRole("link", { name: /BOOK NOW/i });
+    expect(button).toBeInTheDocument();
+
   });
 
-  test("renders the 'BOOK NOW' button", () => {
-    render(<Facial />);
-    expect(screen.getByRole("link", { name: /BOOK NOW/i })).toBeInTheDocument();
-  });
-
-  test("applies the background image", () => {
-    render(<Facial />);
-    const bgDiv = screen.getByTestId("facial-bg"); // Use getByTestId
+  test("has correct background image", () => {
+    const bgDiv = screen.getByTestId("facial-bg"); 
     expect(bgDiv).toHaveStyle(`background-image: url(mock-image-path)`);
   });
 });

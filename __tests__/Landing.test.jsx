@@ -14,7 +14,6 @@ describe("Landing Component", () => {
     });
 
     test('renders the Gallery component', () => {
-
         const heading = screen.getByText('WELCOME TO THE NEW ERA');
         expect(heading).toBeInTheDocument();
 
@@ -27,7 +26,6 @@ describe("Landing Component", () => {
 
     test('has correct background image', () => {
         const divElement = screen.getByTestId('landing-container'); 
-
         expect(divElement).toHaveStyle(`background-image: url(mock-image-path)`);
     });
 });
