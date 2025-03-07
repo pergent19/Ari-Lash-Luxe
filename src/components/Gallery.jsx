@@ -4,6 +4,7 @@ import gallery from "@/assets/images/gallery.jpg";
 export default function Gallery() {
   return (
     <div
+      data-testid="gallery-container"
       className="h-screen bg-cover bg-no-repeat bg-[50%_30%] flex flex-col justify-end items-center"
       style={{ backgroundImage: `url(${gallery})` }}
     >

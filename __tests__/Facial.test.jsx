@@ -1,4 +1,4 @@
-import "@testing-library/jest-dom"; //Required for `.toBeInTheDocument()`
+import "@testing-library/jest-dom";
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import Facial from "../src/components/Facial"
