@@ -1,5 +1,6 @@
 import React from "react";
 import gallery from "@/assets/images/gallery.jpg";
+import Button from "./Button/button";
 
 export default function Gallery() {
   return (
@@ -11,12 +12,11 @@ export default function Gallery() {
       <div className="text-center mb-5">
         <h2 className="text-3xl text-white inter-bold">GALLERY</h2>
       </div>
-      <a
+        <Button
+        text="SEE MORE"
         href="#"
-        className="mb-35 inline-block rounded-md border border-transparent bg-[#C5A43B] px-8 py-3 text-center font-medium text-white hover:bg-[#9E842D]"
-      >
-        SEE MORE
-      </a>
+        className="mb-35"
+      />
     </div>
   );
 }

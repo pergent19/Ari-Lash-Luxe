@@ -1,5 +1,6 @@
 import React from 'react';
 import landing from '@/assets/images/landing.jpg';
+import Button from './Button/button';
 
 export default function Landing() {
   return (
@@ -16,12 +17,10 @@ export default function Landing() {
           <h1 className="text-white text-[40px] sm:text-[60px] md:text-[52px] inter-bold">
             LASHES IN MINUTES, <br /> NOT HOURS
           </h1>
-          <a
-            href="#"
-            className="inline-block rounded-md border border-transparent bg-[#C5A43B] px-8 py-3 text-center font-medium text-white hover:bg-[#9E842D]"
-          >
-            BOOK NOW
-          </a>
+          <Button
+          text="BOOK NOW"
+          href="#"
+          />
         </div>
       </div>
     </>

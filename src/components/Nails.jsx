@@ -1,5 +1,6 @@
 import React from 'react'
 import nails from "@/assets/images/nails.jpg";
+import Button from './Button/button';
 
 export default function Nails() {
   return (
@@ -10,12 +11,10 @@ export default function Nails() {
             <h2 className="text-3xl text-center romanesco-regular">
                 Perfectly polished nails for a flawless, stylish <br/> finish.
             </h2>
-            <a
+            <Button
+              text="BOOK NOW"
               href="#"
-              className="inline-block rounded-md border border-transparent bg-[#C5A43B] px-8 py-3 text-center font-medium text-white hover:bg-[#9E842D]"
-            >
-              BOOK NOW
-            </a>
+            />
           </div>
     
           {/* Right Column (60%) */}

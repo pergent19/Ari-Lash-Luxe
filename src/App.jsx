@@ -5,6 +5,8 @@ import Gallery from './components/Gallery'
 import Lash from './components/Lash'
 import Facial from './components/Facial'
 import Nails from './components/Nails'
+import Faq from './components/Faq'
+import Footer from './components/Footer'
 
 function App() {
 
@@ -16,6 +18,8 @@ function App() {
       <Lash />
       <Facial />
       <Nails />
+      <Faq />
+      <Footer />
     </div>
   )
 }

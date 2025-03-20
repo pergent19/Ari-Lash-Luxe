@@ -1,5 +1,6 @@
 import React from "react";
 import lash from "@/assets/images/lash.jpg";
+import Button from "./Button/button";
 
 export default function Lash() {
   return (
@@ -11,12 +12,10 @@ export default function Lash() {
           Enhance your beauty with lush, customized <br /> lash extensions for a
           flawless look.
         </h2>
-        <a
+        <Button
+          text="BOOK NOW"
           href="#"
-          className="inline-block rounded-md border border-transparent bg-[#C5A43B] px-8 py-3 text-center font-medium text-white hover:bg-[#9E842D]"
-        >
-          BOOK NOW
-        </a>
+        />
       </div>
 
       {/* Right Column (60%) */}

@@ -1,5 +1,6 @@
 import React from 'react'
 import facial from "@/assets/images/facial.jpg";
+import Button from './Button/button';
 
 export default function Facial() {
   return (
@@ -17,12 +18,10 @@ export default function Facial() {
         <h2 className="text-3xl text-center romanesco-regular">
             Revitalize your skin with facials designed to <br /> cleanse, hydrate, and restore your natural glow.
         </h2>
-        <a
-          href="#"
-          className="inline-block rounded-md border border-transparent bg-[#C5A43B] px-8 py-3 text-center font-medium text-white hover:bg-[#9E842D]"
-        >
-          BOOK NOW
-        </a>
+        <Button
+        text="BOOK NOW"
+        href="#"
+        />
       </div>
     </div>
   )
