@@ -1,8 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
 import landing from '@/assets/images/landing.jpg';
 import Button from './Button/button';
+import Modal from './Modal/modal';
+import ServiceSelector from './ServiceSelector';
 
 export default function Landing() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
   return (
     <>
       <div
@@ -20,8 +31,13 @@ export default function Landing() {
           <Button
           text="BOOK NOW"
           href="#"
+          onClick={handleOpenModal}
           />
         </div>
+        {/* Modal Component */}
+        <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+          <ServiceSelector type=""/>
+        </Modal>
       </div>
     </>
   );

@@ -1,8 +1,20 @@
-import React from "react";
+import React, {useState} from "react";
 import lash from "@/assets/images/lash.jpg";
 import Button from "./Button/button";
+import Modal from "./Modal/modal";
+import ServiceSelector from "./ServiceSelector";
 
 export default function Lash() {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+  
+    const handleOpenModal = () => {
+      setIsModalOpen(true);
+    };
+  
+    const handleCloseModal = () => {
+      setIsModalOpen(false);
+    };
+
   return (
     <div className="h-screen flex">
       {/* Left Column (40%) */}
@@ -15,6 +27,7 @@ export default function Lash() {
         <Button
           text="BOOK NOW"
           href="#"
+          onClick={handleOpenModal}
         />
       </div>
 
@@ -25,6 +38,11 @@ export default function Lash() {
         style={{ backgroundImage: `url(${lash})` }}
       >
       </div>
+
+      {/* Modal Component */}
+        <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+          <ServiceSelector type="lash"/>
+        </Modal>
     </div>
   );
 }
