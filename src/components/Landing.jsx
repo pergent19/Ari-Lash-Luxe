@@ -3,13 +3,16 @@ import landing from "@/assets/images/landing.jpg";
 import Button from "./Button/button";
 import Modal from "./Modal/modal";
 import ServiceSelector from "./ServiceSelector";
+import StaffSelector from "./StaffSelector";
 
 export default function Landing() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedService, setSelectedService] = useState("");
+  const [step, setStep] = useState(1); // 1 = ServiceSelector, 2 = StaffSelector
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
+    setStep(1); 
   };
 
   const handleCloseModal = () => {
@@ -20,6 +23,10 @@ export default function Landing() {
     console.log(serviceType);
     setSelectedService(serviceType);
   };
+
+    const handleNextStep = () => {
+      setStep(2);
+    };
 
   return (
     <>
@@ -52,7 +59,15 @@ export default function Landing() {
           }
           description={selectedService ? "SELECT SERVICES" : " "}
         >
-          <ServiceSelector type="" onServiceSelect={handleServiceSelection} />
+          {step === 1 ? (
+            <ServiceSelector
+              type=""
+              onServiceSelect={handleServiceSelection}
+              onNext={handleNextStep}
+            />
+          ) : (
+            <StaffSelector />
+          )}
         </Modal>
       </div>
     </>

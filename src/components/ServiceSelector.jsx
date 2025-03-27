@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from './Button/button';
 
-const ServiceSelector = ({type, onServiceSelect }) => {
+const ServiceSelector = ({type, onServiceSelect, onNext }) => {
   // State for the selected service and corresponding options
   const [selectedService, setSelectedService] = useState(type);
   const [selectedOptions, setSelectedOptions] = useState([]);
+
+  useEffect(() => {
+    onServiceSelect(type); 
+  }, [type]);
 
   const handleServiceChange = (event) => {
     setSelectedService(event.target.value);
@@ -22,7 +26,8 @@ const ServiceSelector = ({type, onServiceSelect }) => {
   };
 
   const handleSubmit = () => {
-    alert(`Selected Service: ${selectedService}\nServices: ${selectedOptions.join(', ')}`);
+    //alert(`Selected Service: ${selectedService}\nServices: ${selectedOptions.join(', ')}`);
+    onNext(); // Move to StaffSelector
   };
 
   // Service options with hours and prices

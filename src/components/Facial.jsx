@@ -7,9 +7,14 @@ import StaffSelector from "./StaffSelector";
 
 export default function Facial() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedService, setSelectedService] = useState("");
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
+  };
+
+  const handleServiceSelection = (serviceType) => {
+    setSelectedService(serviceType);
   };
 
   const handleCloseModal = () => {
@@ -35,8 +40,24 @@ export default function Facial() {
       </div>
 
       {/* Modal Component */}
-      <Modal isOpen={isModalOpen} onClose={handleCloseModal} title="FACIALS" description="SELECT SERVICES">
-        <ServiceSelector type="facials" />
+      <Modal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        title={
+          selectedService === "nails"
+            ? "NAILS"
+            : selectedService === "lash"
+            ? "LASH EXTENSIONS"
+            : selectedService === "facials"
+            ? "FACIALS"
+            : " "
+        }
+        description="SELECT SERVICES"
+      >
+        <ServiceSelector
+          type="facials"
+          onServiceSelect={handleServiceSelection}
+        />
         {/* <StaffSelector /> */}
       </Modal>
     </div>

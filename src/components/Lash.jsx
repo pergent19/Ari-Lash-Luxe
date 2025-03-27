@@ -6,9 +6,14 @@ import ServiceSelector from "./ServiceSelector";
 
 export default function Lash() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedService, setSelectedService] = useState("");
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
+  };
+
+  const handleServiceSelection = (serviceType) => {
+    setSelectedService(serviceType);
   };
 
   const handleCloseModal = () => {
@@ -19,9 +24,12 @@ export default function Lash() {
     <div className="h-screen flex flex-col md:flex-row">
       {/* Left Column */}
       <div className="w-full md:w-[40%] flex flex-col items-center justify-center space-y-4 px-4 md:px-8 py-20 md:py-8">
-        <h2 className="text-[14px] md:text-[24px] inter-bold text-center md:text-left">LASH EXTENSION</h2>
-        <h2 className="text-[20px] md:text-[27px] text-center romanesco-regular md:text-left">
-          Enhance your beauty with lush, customized <br /> lash extensions for a flawless look.
+        <h2 className="text-[14px] md:text-[24px] inter-bold text-center">
+          LASH EXTENSION
+        </h2>
+        <h2 className="text-[20px] md:text-[27px] text-center romanesco-regular">
+          Enhance your beauty with lush, customized <br /> lash extensions for a
+          flawless look.
         </h2>
         <Button text="BOOK NOW" href="#" onClick={handleOpenModal} />
       </div>
@@ -34,8 +42,21 @@ export default function Lash() {
       ></div>
 
       {/* Modal Component */}
-      <Modal isOpen={isModalOpen} onClose={handleCloseModal} title="LASH EXTENSIONS" description="SELECT SERVICES">
-        <ServiceSelector type="lash" />
+      <Modal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        title={
+          selectedService === "nails"
+            ? "NAILS"
+            : selectedService === "lash"
+            ? "LASH EXTENSIONS"
+            : selectedService === "facials"
+            ? "FACIALS"
+            : " "
+        }
+        description="SELECT SERVICES"
+      >
+        <ServiceSelector type="lash" onServiceSelect={handleServiceSelection} />
       </Modal>
     </div>
   );
