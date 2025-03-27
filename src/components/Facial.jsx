@@ -3,6 +3,7 @@ import facial from "@/assets/images/facial.jpg";
 import Button from "./Button/button";
 import Modal from "./Modal/modal";
 import ServiceSelector from "./ServiceSelector";
+import StaffSelector from "./StaffSelector";
 
 export default function Facial() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -16,15 +17,15 @@ export default function Facial() {
   };
 
   return (
-    <div className="h-screen flex">
-      {/* Right Column (40%) */}
+    <div className="h-screen flex flex-col-reverse md:flex-row">
+      {/* left Column (40%) */}
       <div
-        className="w-[40%] flex items-center justify-center bg-cover bg-center bg-no-repeat"
+        className="w-full md:w-[60%] h-full md:h-auto bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${facial})` }}
         data-testid="facial-bg"
       ></div>
-      {/* Left Column (60%) */}
-      <div className="w-[60%] flex flex-col items-center justify-center space-y-4">
+      {/* right Column (60%) */}
+      <div className="w-full md:w-[40%] flex flex-col items-center justify-center space-y-4 px-4 md:px-8 py-20 md:py-8">
         <h2 className="text-3xl inter-bold">FACIALS</h2>
         <h2 className="text-3xl text-center romanesco-regular">
           Revitalize your skin with facials designed to <br /> cleanse, hydrate,
@@ -34,8 +35,9 @@ export default function Facial() {
       </div>
 
       {/* Modal Component */}
-      <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+      <Modal isOpen={isModalOpen} onClose={handleCloseModal} title="FACIALS" description="SELECT SERVICES">
         <ServiceSelector type="facials" />
+        {/* <StaffSelector /> */}
       </Modal>
     </div>
   );

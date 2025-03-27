@@ -29,3 +29,48 @@
   margin-left: 132px;
   margin-right: 132px;
 }
+
+/* Style the custom checkbox */
+.custom-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 24px;
+  height: 24px;
+  border: 2px solid #C5A43B; /* Border color (gold) */
+  border-radius: 4px; /* Rounded corners */
+  background-color: white; /* Default background color */
+  position: relative;
+  cursor: pointer;
+}
+
+/* Style the checkbox when it is checked */
+.custom-checkbox:checked {
+  background-color: #C5A43B; /* Gold background when checked */
+  border-color: #C5A43B; /* Gold border when checked */
+}
+
+/* Add the white checkmark */
+.custom-checkbox:checked::after {
+  content: '';
+  position: absolute;
+  left: 6px; /* Adjust left position */
+  top: 2px; /* Adjust top position */
+  width: 10px; /* Width of checkmark */
+  height: 18px; /* Height of checkmark */
+  border: solid white; /* White border for the checkmark */
+  border-width: 0 4px 4px 0; /* Style the checkmark */
+  transform: rotate(45deg); /* Rotate the checkmark to make it an X */
+}
+
+/* Media query for smaller devices (e.g., mobile screens) */
+@media (max-width: 767px) {
+  .nav {
+    margin-left: 20px;  /* Reduced margin on the left */
+    margin-right: 20px; /* Reduced margin on the right */
+  }
+  .landing {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}

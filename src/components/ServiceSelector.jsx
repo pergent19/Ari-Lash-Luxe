@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import Button from './Button/button';
 
-const ServiceSelector = ({type}) => {
+const ServiceSelector = ({type, onServiceSelect }) => {
   // State for the selected service and corresponding options
   const [selectedService, setSelectedService] = useState(type);
   const [selectedOptions, setSelectedOptions] = useState([]);
 
   const handleServiceChange = (event) => {
     setSelectedService(event.target.value);
+    onServiceSelect(event.target.value);
     setSelectedOptions([]); // Reset selected options when service changes
   };
 
@@ -51,7 +52,7 @@ const ServiceSelector = ({type}) => {
   ];
 
   return (
-    <div className="p-6 max-w-md mx-auto">
+    <div className="max-w-md mt-5 flex flex-col h-70">
       {/* Row 1: Dropdown */}
       <div className="mb-4">
         <select
@@ -77,7 +78,7 @@ const ServiceSelector = ({type}) => {
               checked={selectedOptions.includes(serviceOption.name)}
               onChange={handleCheckboxChange}
               id={serviceOption.name}
-              className="mr-2 w-6 h-6"
+              className="mr-2 w-6 h-6 custom-checkbox"
             />
             <label htmlFor={serviceOption.name} className="flex flex-col">
             <span className="font-bold">{serviceOption.name}</span> {/* Bold font */}
@@ -91,7 +92,7 @@ const ServiceSelector = ({type}) => {
 
       {/* Row 3: Button */}
       <div className="flex justify-center">
-        <Button text="NEXT" onClick={handleSubmit} className='w-full' />
+        <Button text="NEXT" onClick={handleSubmit} className='w-full mb-5' />
       </div>
     </div>
   );
