@@ -19,8 +19,8 @@ export default function Nails() {
     <div className="h-screen flex flex-col md:flex-row">
       {/* Left Column (40%) */}
       <div className="w-full md:w-[40%] flex flex-col items-center justify-center space-y-4 px-4 md:px-8 py-20 md:py-8">
-        <h2 className="text-3xl inter-bold text-center md:text-left">NAILS</h2>
-        <h2 className="text-3xl text-center romanesco-regular md:text-left">
+        <h2 className="text-[14px] md:text-[24px] inter-bold text-center md:text-left">NAILS</h2>
+        <h2 className="text-[20px] md:text-[27px] text-center romanesco-regular md:text-left">
           Perfectly polished nails for a flawless, stylish <br /> finish.
         </h2>
         <Button text="BOOK NOW" href="#" onClick={handleOpenModal} />

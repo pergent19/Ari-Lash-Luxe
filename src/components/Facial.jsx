@@ -20,14 +20,14 @@ export default function Facial() {
     <div className="h-screen flex flex-col-reverse md:flex-row">
       {/* left Column (40%) */}
       <div
-        className="w-full md:w-[60%] h-full md:h-auto bg-cover bg-center bg-no-repeat"
+        className="w-full md:w-[40%] h-full md:h-auto bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${facial})` }}
         data-testid="facial-bg"
       ></div>
       {/* right Column (60%) */}
-      <div className="w-full md:w-[40%] flex flex-col items-center justify-center space-y-4 px-4 md:px-8 py-20 md:py-8">
-        <h2 className="text-3xl inter-bold">FACIALS</h2>
-        <h2 className="text-3xl text-center romanesco-regular">
+      <div className="w-full md:w-[60%] flex flex-col items-center justify-center space-y-4 px-4 md:px-8 py-20 md:py-8">
+        <h2 className="text-[14px] md:text-[24px] inter-bold">FACIALS</h2>
+        <h2 className="text-[20px] md:text-[27px] text-center romanesco-regular">
           Revitalize your skin with facials designed to <br /> cleanse, hydrate,
           and restore your natural glow.
         </h2>

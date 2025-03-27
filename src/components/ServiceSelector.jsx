@@ -52,7 +52,7 @@ const ServiceSelector = ({type, onServiceSelect }) => {
   ];
 
   return (
-    <div className="max-w-md mt-5 flex flex-col h-70">
+    <div className="max-w-md mt-5 flex flex-col h-70 md:h-full">
       {/* Row 1: Dropdown */}
       <div className="mb-4">
         <select

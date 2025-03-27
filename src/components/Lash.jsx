@@ -19,8 +19,8 @@ export default function Lash() {
     <div className="h-screen flex flex-col md:flex-row">
       {/* Left Column */}
       <div className="w-full md:w-[40%] flex flex-col items-center justify-center space-y-4 px-4 md:px-8 py-20 md:py-8">
-        <h2 className="text-3xl inter-bold text-center md:text-left">LASH EXTENSION</h2>
-        <h2 className="text-3xl text-center romanesco-regular md:text-left">
+        <h2 className="text-[14px] md:text-[24px] inter-bold text-center md:text-left">LASH EXTENSION</h2>
+        <h2 className="text-[20px] md:text-[27px] text-center romanesco-regular md:text-left">
           Enhance your beauty with lush, customized <br /> lash extensions for a flawless look.
         </h2>
         <Button text="BOOK NOW" href="#" onClick={handleOpenModal} />

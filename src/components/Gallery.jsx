@@ -10,7 +10,7 @@ export default function Gallery() {
       style={{ backgroundImage: `url(${gallery})` }}
     >
       <div className="text-center mb-5">
-        <h2 className="text-3xl text-white inter-bold">GALLERY</h2>
+        <h2 className="text-[24px] md:text-[30px] text-white inter-bold">GALLERY</h2>
       </div>
         <Button
         text="SEE MORE"
