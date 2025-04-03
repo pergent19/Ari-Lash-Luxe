@@ -4,15 +4,19 @@ import Button from "./Button/button";
 import Modal from "./Modal/modal";
 import ServiceSelector from "./ServiceSelector";
 import StaffSelector from "./StaffSelector";
+import DayTime from "./DayTime";
 
 export default function Landing() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedService, setSelectedService] = useState("");
-  const [step, setStep] = useState(1); // 1 = ServiceSelector, 2 = StaffSelector
+  const [selectedServiceType, setSelectedServiceType] = useState("");
+  const [selectedOptions, setSelectedOptions] = useState([]); // Store selected service
+  const [selectedStaff, setSelectedStaff] = useState(null); // Store selected staff
+  const [selectedDate, setSelectedDate] = useState(new Date()); // Store selected date
+  const [step, setStep] = useState(1); // 1 = ServiceSelector, 2 = StaffSelector, 3 = DayTime
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
-    setStep(1); 
+    setStep(1);
   };
 
   const handleCloseModal = () => {
@@ -20,13 +24,16 @@ export default function Landing() {
   };
 
   const handleServiceSelection = (serviceType) => {
-    console.log(serviceType);
-    setSelectedService(serviceType);
+    setSelectedServiceType(serviceType);
+  };
+  
+  const handleNextStep = () => {
+    setStep((prev) => prev + 1);
   };
 
-    const handleNextStep = () => {
-      setStep(2);
-    };
+  const handleBackStep = () => {
+    setStep((prev) => Math.max(1, prev - 1)); // Ensure step doesn't go below 1
+  };
 
   return (
     <>
@@ -49,25 +56,46 @@ export default function Landing() {
           isOpen={isModalOpen}
           onClose={handleCloseModal}
           title={
-            selectedService === "nails"
+            selectedServiceType === "nails"
               ? "NAILS"
-              : selectedService === "lash"
+              : selectedServiceType === "lash"
               ? "LASH EXTENSIONS"
-              : selectedService === "facials"
+              : selectedServiceType === "facials"
               ? "FACIALS"
-              : " "
+              : "ARI LASH LUXE"
           }
-          description={selectedService ? "SELECT SERVICES" : " "}
+          description={
+            step === 1
+              ? "SELECT SERVICES"
+              : step === 2
+              ? "PREFERED STAFF"
+              : step === 3
+              ? "DAY AND TIME"
+              : ""
+          }
         >
           {step === 1 ? (
             <ServiceSelector
-              type=""
+              type={selectedServiceType}
+              selectedServiceType={selectedServiceType}
               onServiceSelect={handleServiceSelection}
               onNext={handleNextStep}
+              selectedOptions={selectedOptions}
+              onSelectedOptions={setSelectedOptions}
             />
-          ) : (
-            <StaffSelector />
-          )}
+          ) : step === 2 ? (
+            <StaffSelector  
+              onBack={handleBackStep} 
+              onNext={handleNextStep} 
+              selectedStaff={selectedStaff}
+              onStaffSelect={setSelectedStaff}  />
+          ) : step === 3 ? (
+            <DayTime 
+              onBack={handleBackStep} 
+              onNext={handleNextStep} 
+              selectedDate={selectedDate}
+              onDateSelect={setSelectedDate} />
+          ) : null}
         </Modal>
       </div>
     </>

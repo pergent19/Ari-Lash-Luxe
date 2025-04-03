@@ -1,24 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Button from './Button/button';
 
-const ServiceSelector = ({type, onServiceSelect, onNext }) => {
-  // State for the selected service and corresponding options
-  const [selectedService, setSelectedService] = useState(type);
-  const [selectedOptions, setSelectedOptions] = useState([]);
+const ServiceSelector = ({type, selectedServiceType, onServiceSelect, onNext, selectedOptions, onSelectedOptions }) => {
 
   useEffect(() => {
     onServiceSelect(type); 
   }, [type]);
 
   const handleServiceChange = (event) => {
-    setSelectedService(event.target.value);
-    onServiceSelect(event.target.value);
-    setSelectedOptions([]); // Reset selected options when service changes
+    const selectedValue = event.target.value;
+    onServiceSelect(selectedValue); // Pass the selected service to the parent component
+    onSelectedOptions([]); // Reset selected options when service changes
   };
 
   const handleCheckboxChange = (event) => {
     const value = event.target.value;
-    setSelectedOptions((prev) =>
+    console.log(value)
+    onSelectedOptions((prev) =>
       prev.includes(value)
         ? prev.filter((item) => item !== value)
         : [...prev, value]
@@ -26,7 +24,6 @@ const ServiceSelector = ({type, onServiceSelect, onNext }) => {
   };
 
   const handleSubmit = () => {
-    //alert(`Selected Service: ${selectedService}\nServices: ${selectedOptions.join(', ')}`);
     onNext(); // Move to StaffSelector
   };
 
@@ -62,7 +59,7 @@ const ServiceSelector = ({type, onServiceSelect, onNext }) => {
       <div className="mb-4">
         <select
           id="service"
-          value={selectedService}
+          value={selectedServiceType}
           onChange={handleServiceChange}
           className="w-full p-3 border border-black"
         >
@@ -75,7 +72,7 @@ const ServiceSelector = ({type, onServiceSelect, onNext }) => {
 
       {/* Row 2: Checkboxes based on selected service or all services if none selected */}
       <div className="mb-4">
-        {(selectedService ? services[selectedService] : allServices).map((serviceOption) => (
+        {(selectedServiceType ? services[selectedServiceType] : allServices).map((serviceOption) => (
           <div key={serviceOption.name} className="flex items-center mb-4">
             <input
               type="checkbox"
