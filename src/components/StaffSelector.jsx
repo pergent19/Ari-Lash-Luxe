@@ -42,7 +42,7 @@ function StaffSelector({onBack ,onNext, selectedStaff, onStaffSelect}) {
   ];
 
   return (
-    <div className="w-full max-w-lg mx-auto p-5 bg-white dark:bg-gray-800 rounded-lg">
+    <div className="h-90 md:h-120 max-w-lg mx-auto p-1 md:p-5 bg-white dark:bg-gray-800 rounded-lg">
       <ul className="flex flex-col gap-4">
         {staffData.map((staff) => (
           <li key={staff.id}>
@@ -57,7 +57,7 @@ function StaffSelector({onBack ,onNext, selectedStaff, onStaffSelect}) {
             />
             <label
               htmlFor={staff.id}
-              className="flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:text-[#C5A43B] peer-checked:border-[#C5A43B] hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"
+              className="flex items-center justify-between w-full p-1 md:p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:text-[#C5A43B] peer-checked:border-[#C5A43B] hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"
             >
               <div className="flex items-center space-x-4">
                 {/* Staff Image */}
@@ -88,7 +88,7 @@ function StaffSelector({onBack ,onNext, selectedStaff, onStaffSelect}) {
           </li>
         ))}
       </ul>
-      <div className="flex justify-center mt-5">
+      <div className="flex justify-center mt-5 mb-10">
         <Button text="BACK" className="w-1/2 bg-gray-300 text-white" onClick={handleBackStep} />
         <Button text="NEXT" className="w-1/2" onClick={handleNextStep} />
       </div>

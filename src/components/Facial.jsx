@@ -1,25 +1,39 @@
-import React, { useState } from "react";
+import React from "react";
 import facial from "@/assets/images/facial.jpg";
 import Button from "./Button/button";
 import Modal from "./Modal/modal";
 import ServiceSelector from "./ServiceSelector";
 import StaffSelector from "./StaffSelector";
+import DayTime from "./DayTime";
+
+import { useDispatch, useSelector } from "react-redux";
+
+import {
+  // openModal,
+  // closeModal,
+  nextStep,
+  backStep,
+  setSelectedServiceType,
+  setSelectedOptions,
+  setSelectedStaff,
+  setSelectedDate,
+  openFacialsModal,
+  closeFacialsModal,
+} from "../redux/features/modalSlice";
 
 export default function Facial() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedService, setSelectedService] = useState("");
 
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
+  const dispatch = useDispatch();
 
-  const handleServiceSelection = (serviceType) => {
-    setSelectedService(serviceType);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
+  const {
+    //isOpen,
+    facialsModalOpen,
+    step,
+    selectedServiceType,
+    selectedOptions,
+    selectedStaff,
+    selectedDate,
+  } = useSelector((state) => state.modal);
 
   return (
     <div className="h-screen flex flex-col-reverse md:flex-row">
@@ -36,29 +50,56 @@ export default function Facial() {
           Revitalize your skin with facials designed to <br /> cleanse, hydrate,
           and restore your natural glow.
         </h2>
-        <Button text="BOOK NOW" href="#" onClick={handleOpenModal} />
+        <Button
+          text="BOOK NOW"
+          href="#"
+          onClick={() => dispatch(openFacialsModal())}
+        />
       </div>
 
       {/* Modal Component */}
       <Modal
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
+        isOpen={facialsModalOpen}
+        onClose={() => dispatch(closeFacialsModal())}
         title={
-          selectedService === "nails"
+          selectedServiceType === "nails"
             ? "NAILS"
-            : selectedService === "lash"
+            : selectedServiceType === "lash"
             ? "LASH EXTENSIONS"
-            : selectedService === "facials"
+            : selectedServiceType === "facials"
             ? "FACIALS"
             : " "
         }
         description="SELECT SERVICES"
       >
-        <ServiceSelector
-          type="facials"
-          onServiceSelect={handleServiceSelection}
-        />
-        {/* <StaffSelector /> */}
+        {step === 1 ? (
+            <ServiceSelector
+              type="facials"
+              selectedServiceType={selectedServiceType}
+              onServiceSelect={(service) =>
+                dispatch(setSelectedServiceType(service))
+              }
+              onNext={() => dispatch(nextStep())}
+              selectedOptions={selectedOptions}
+              onSelectedOptions={(options) =>
+                dispatch(setSelectedOptions(options))
+              }
+            />
+          ) : step === 2 ? (
+            <StaffSelector
+              onBack={() => dispatch(backStep())}
+              onNext={() => dispatch(nextStep())}
+              selectedStaff={selectedStaff}
+              onStaffSelect={(staff) => dispatch(setSelectedStaff(staff))}
+            />
+          ) : step === 3 ? (
+            <DayTime
+              onBack={() => dispatch(backStep())}
+              onNext={() => dispatch(nextStep())}
+              selectedDate={selectedDate}
+              onDateSelect={(date) => dispatch(setSelectedDate(date))}
+            />
+          ) : null}
       </Modal>
     </div>
   );

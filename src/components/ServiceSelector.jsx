@@ -4,23 +4,36 @@ import Button from './Button/button';
 const ServiceSelector = ({type, selectedServiceType, onServiceSelect, onNext, selectedOptions, onSelectedOptions }) => {
 
   useEffect(() => {
+    console.log(type)
     onServiceSelect(type); 
   }, [type]);
 
   const handleServiceChange = (event) => {
+    console.log('triggered handleServiceChange from service selector?')
     const selectedValue = event.target.value;
-    onServiceSelect(selectedValue); // Pass the selected service to the parent component
-    onSelectedOptions([]); // Reset selected options when service changes
+    onServiceSelect(selectedValue);
+    onSelectedOptions([]); 
   };
+
+  // const handleCheckboxChange = (event) => {
+  //   const value = event.target.value;
+  //   onSelectedOptions((prev) =>
+  //     prev.includes(value)
+  //       ? prev.filter((item) => item !== value)
+  //       : [...prev, value]
+  //   );
+  // };
 
   const handleCheckboxChange = (event) => {
     const value = event.target.value;
-    console.log(value)
-    onSelectedOptions((prev) =>
-      prev.includes(value)
-        ? prev.filter((item) => item !== value)
-        : [...prev, value]
-    );
+  
+    // Calculate the updated selected options
+    const updatedOptions = selectedOptions.includes(value)
+      ? selectedOptions.filter((item) => item !== value) 
+      : [...selectedOptions, value]; 
+  
+
+    onSelectedOptions(updatedOptions); 
   };
 
   const handleSubmit = () => {
@@ -54,7 +67,7 @@ const ServiceSelector = ({type, selectedServiceType, onServiceSelect, onNext, se
   ];
 
   return (
-    <div className="max-w-md mt-5 flex flex-col h-70 md:h-full">
+    <div className="max-w-md mt-5 flex flex-col h-80 md:h-full">
       {/* Row 1: Dropdown */}
       <div className="mb-4">
         <select

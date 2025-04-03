@@ -3,22 +3,37 @@ import nails from "@/assets/images/nails.jpg";
 import Button from "./Button/button";
 import Modal from "./Modal/modal";
 import ServiceSelector from "./ServiceSelector";
+import StaffSelector from "./StaffSelector";
+import DayTime from "./DayTime";
+
+import { useDispatch, useSelector } from "react-redux";
+
+import {
+  // openModal,
+  // closeModal,
+  openNailsModal,
+  closeNailsModal,
+  nextStep,
+  backStep,
+  setSelectedServiceType,
+  setSelectedOptions,
+  setSelectedStaff,
+  setSelectedDate,
+} from "../redux/features/modalSlice";
 
 export default function Nails() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedService, setSelectedService] = useState("");
+  
+  const dispatch = useDispatch();
 
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleServiceSelection = (serviceType) => {
-    setSelectedService(serviceType);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
+  const {
+    // isOpen,
+    step,
+    selectedServiceType,
+    selectedOptions,
+    selectedStaff,
+    selectedDate,
+    nailsModalOpen
+  } = useSelector((state) => state.modal);
 
   return (
     <div className="h-screen flex flex-col md:flex-row">
@@ -30,7 +45,11 @@ export default function Nails() {
         <h2 className="text-[20px] md:text-[27px] text-center romanesco-regular">
           Perfectly polished nails for a flawless, stylish <br /> finish.
         </h2>
-        <Button text="BOOK NOW" href="#" onClick={handleOpenModal} />
+        <Button
+          text="BOOK NOW"
+          href="#"
+          onClick={() => dispatch(openNailsModal())}
+        />
       </div>
 
       {/* Right Column (60%) */}
@@ -42,23 +61,47 @@ export default function Nails() {
 
       {/* Modal Component */}
       <Modal
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
+        isOpen={nailsModalOpen}
+        onClose={() => dispatch(closeNailsModal())}
         title={
-          selectedService === "nails"
+          selectedServiceType === "nails"
             ? "NAILS"
-            : selectedService === "lash"
+            : selectedServiceType === "lash"
             ? "LASH EXTENSIONS"
-            : selectedService === "facials"
+            : selectedServiceType === "facials"
             ? "FACIALS"
             : " "
         }
         description="SELECT SERVICES"
       >
-        <ServiceSelector
-          type="nails"
-          onServiceSelect={handleServiceSelection}
-        />
+          {step === 1 ? (
+            <ServiceSelector
+              type="nails"
+              selectedServiceType={selectedServiceType}
+              onServiceSelect={(service) =>
+                dispatch(setSelectedServiceType(service))
+              }
+              onNext={() => dispatch(nextStep())}
+              selectedOptions={selectedOptions}
+              onSelectedOptions={(options) =>
+                dispatch(setSelectedOptions(options))
+              }
+            />
+          ) : step === 2 ? (
+            <StaffSelector
+              onBack={() => dispatch(backStep())}
+              onNext={() => dispatch(nextStep())}
+              selectedStaff={selectedStaff}
+              onStaffSelect={(staff) => dispatch(setSelectedStaff(staff))}
+            />
+          ) : step === 3 ? (
+            <DayTime
+              onBack={() => dispatch(backStep())}
+              onNext={() => dispatch(nextStep())}
+              selectedDate={selectedDate}
+              onDateSelect={(date) => dispatch(setSelectedDate(date))}
+            />
+          ) : null}
       </Modal>
     </div>
   );

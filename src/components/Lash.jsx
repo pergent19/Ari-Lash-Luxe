@@ -1,24 +1,37 @@
-import React, { useState } from "react";
+import React from "react";
 import lash from "@/assets/images/lash.jpg";
 import Button from "./Button/button";
 import Modal from "./Modal/modal";
 import ServiceSelector from "./ServiceSelector";
+import StaffSelector from "./StaffSelector";
+import DayTime from "./DayTime";
+
+import { useDispatch, useSelector } from "react-redux";
+
+import {
+  nextStep,
+  backStep,
+  setSelectedServiceType,
+  setSelectedOptions,
+  setSelectedStaff,
+  setSelectedDate,
+  openLashModal,
+  closeLashModal
+} from "../redux/features/modalSlice";
 
 export default function Lash() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedService, setSelectedService] = useState("");
 
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
+  const dispatch = useDispatch();
 
-  const handleServiceSelection = (serviceType) => {
-    setSelectedService(serviceType);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
+    const {
+      lashModalOpen,
+      step,
+      selectedServiceType,
+      selectedOptions,
+      selectedStaff,
+      selectedDate,
+    } = useSelector((state) => state.modal);
+  
 
   return (
     <div className="h-screen flex flex-col md:flex-row">
@@ -31,7 +44,7 @@ export default function Lash() {
           Enhance your beauty with lush, customized <br /> lash extensions for a
           flawless look.
         </h2>
-        <Button text="BOOK NOW" href="#" onClick={handleOpenModal} />
+        <Button text="BOOK NOW" href="#"  onClick={() => dispatch(openLashModal())} />
       </div>
 
       {/* Right Column (with background image) */}
@@ -43,20 +56,47 @@ export default function Lash() {
 
       {/* Modal Component */}
       <Modal
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
+        isOpen={lashModalOpen}
+        onClose={() => dispatch(closeLashModal())}
         title={
-          selectedService === "nails"
+          selectedServiceType === "nails"
             ? "NAILS"
-            : selectedService === "lash"
+            : selectedServiceType === "lash"
             ? "LASH EXTENSIONS"
-            : selectedService === "facials"
+            : selectedServiceType === "facials"
             ? "FACIALS"
             : " "
         }
         description="SELECT SERVICES"
       >
-        <ServiceSelector type="lash" onServiceSelect={handleServiceSelection} />
+          {step === 1 ? (
+            <ServiceSelector
+              type="lash"
+              selectedServiceType={selectedServiceType}
+              onServiceSelect={(service) =>
+                dispatch(setSelectedServiceType(service))
+              }
+              onNext={() => dispatch(nextStep())}
+              selectedOptions={selectedOptions}
+              onSelectedOptions={(options) =>
+                dispatch(setSelectedOptions(options))
+              }
+            />
+          ) : step === 2 ? (
+            <StaffSelector
+              onBack={() => dispatch(backStep())}
+              onNext={() => dispatch(nextStep())}
+              selectedStaff={selectedStaff}
+              onStaffSelect={(staff) => dispatch(setSelectedStaff(staff))}
+            />
+          ) : step === 3 ? (
+            <DayTime
+              onBack={() => dispatch(backStep())}
+              onNext={() => dispatch(nextStep())}
+              selectedDate={selectedDate}
+              onDateSelect={(date) => dispatch(setSelectedDate(date))}
+            />
+          ) : null}
       </Modal>
     </div>
   );

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   format,
   addMonths,
@@ -19,6 +19,9 @@ function DayTime({ onBack, onNext, onDateSelect, selectedDate }) {
   const [currentDate, setCurrentDate] = useState(new Date()); // Controls month view
   const today = new Date();
 
+  // Ensure selectedDate is a valid ISO string and then convert to Date
+  const selectedDateObject = selectedDate ? new Date(selectedDate) : null;
+
   // Navigate to previous month (disabled if it's the current month or earlier)
   const handlePrevMonth = () => {
     if (format(currentDate, "yyyy-MM") > format(today, "yyyy-MM")) {
@@ -33,7 +36,7 @@ function DayTime({ onBack, onNext, onDateSelect, selectedDate }) {
 
   const handleDateClick = (day) => {
     if (!isBefore(day, today) || isToday(day)) {
-      onDateSelect(isSameDay(selectedDate, day) ? null : day); // Toggle selection
+      onDateSelect(isSameDay(selectedDateObject, day) ? null : day.toISOString()); // Convert to ISO string
     }
   };
 
@@ -62,14 +65,8 @@ function DayTime({ onBack, onNext, onDateSelect, selectedDate }) {
         <div className="gap-2 flex items-center">
           <button
             onClick={handlePrevMonth}
-            disabled={
-              format(currentDate, "yyyy-MM") <= format(today, "yyyy-MM")
-            }
-            className={`px-3 py-1 rounded-lg ${
-              format(currentDate, "yyyy-MM") <= format(today, "yyyy-MM")
-                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                : "bg-gray-400 text-white"
-            }`}
+            disabled={format(currentDate, "yyyy-MM") <= format(today, "yyyy-MM")}
+            className={`px-3 py-1 rounded-lg ${format(currentDate, "yyyy-MM") <= format(today, "yyyy-MM") ? "bg-gray-300 text-gray-500 cursor-not-allowed" : "bg-gray-400 text-white"}`}
           >
             ←
           </button>
@@ -86,7 +83,7 @@ function DayTime({ onBack, onNext, onDateSelect, selectedDate }) {
       <div className="grid grid-cols-7 text-center font-semibold text-gray-600 mb-2">
         {weekdays.map((day) => (
           <div key={day} className="py-2">
-            {day}
+            <span className="text-xs sm:text-sm md:text-base lg:text-lg">{day}</span>
           </div>
         ))}
       </div>
@@ -101,19 +98,19 @@ function DayTime({ onBack, onNext, onDateSelect, selectedDate }) {
         {/* Actual days */}
         {daysInMonth.map((day) => {
           const isPast = isBefore(day, today) && !isToday(day);
-          const isSelected = selectedDate && isSameDay(day, selectedDate);
+          const isSelected = selectedDateObject && isSameDay(day, selectedDateObject);
           return (
             <button
               key={day}
               onClick={() => handleDateClick(day)}
-              className={`p-2 rounded-lg w-full transition ${
+              className={`rounded-lg w-full transition p-2 sm:p-3 md:p-4 text-sm sm:text-base md:text-lg ${
                 isSelected
                   ? "bg-[#C5A43B] text-white font-bold" // Gold color for selected date
                   : isPast
                   ? "bg-gray-300 text-gray-500 cursor-not-allowed" // Disabled state for past dates
                   : "bg-gray-100 hover:bg-gray-200" // Default state for other days
               }`}
-              disabled={isPast && !isToday(day)} // Disable past dates only (not today)
+              disabled={isPast && !isToday(day)}
             >
               {format(day, "d")}
             </button>

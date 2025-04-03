@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import landing from "@/assets/images/landing.jpg";
 import Button from "./Button/button";
 import Modal from "./Modal/modal";
@@ -6,34 +6,32 @@ import ServiceSelector from "./ServiceSelector";
 import StaffSelector from "./StaffSelector";
 import DayTime from "./DayTime";
 
+import { useDispatch, useSelector } from "react-redux";
+
+import {
+  openModal,
+  closeModal,
+  nextStep,
+  backStep,
+  setSelectedServiceType,
+  setSelectedOptions,
+  setSelectedStaff,
+  setSelectedDate,
+} from "../redux/features/modalSlice";
+
 export default function Landing() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedServiceType, setSelectedServiceType] = useState("");
-  const [selectedOptions, setSelectedOptions] = useState([]); // Store selected service
-  const [selectedStaff, setSelectedStaff] = useState(null); // Store selected staff
-  const [selectedDate, setSelectedDate] = useState(new Date()); // Store selected date
-  const [step, setStep] = useState(1); // 1 = ServiceSelector, 2 = StaffSelector, 3 = DayTime
 
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-    setStep(1);
-  };
+  const dispatch = useDispatch();
+  const {
+    isOpen,
+    step,
+    selectedServiceType,
+    selectedOptions,
+    selectedStaff,
+    selectedDate,
+  } = useSelector((state) => state.modal);
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleServiceSelection = (serviceType) => {
-    setSelectedServiceType(serviceType);
-  };
-  
-  const handleNextStep = () => {
-    setStep((prev) => prev + 1);
-  };
-
-  const handleBackStep = () => {
-    setStep((prev) => Math.max(1, prev - 1)); // Ensure step doesn't go below 1
-  };
+  console.log(selectedServiceType)
 
   return (
     <>
@@ -49,12 +47,16 @@ export default function Landing() {
           <h1 className="text-white text-[30px]  md:text-[52px] inter-bold">
             LASHES IN MINUTES, <br /> NOT HOURS
           </h1>
-          <Button text="BOOK NOW" href="#" onClick={handleOpenModal} />
+          <Button
+            text="BOOK NOW"
+            href="#"
+            onClick={() => dispatch(openModal())}
+          />
         </div>
         {/* Modal Component */}
         <Modal
-          isOpen={isModalOpen}
-          onClose={handleCloseModal}
+          isOpen={isOpen}
+          onClose={() => dispatch(closeModal())}
           title={
             selectedServiceType === "nails"
               ? "NAILS"
@@ -78,23 +80,29 @@ export default function Landing() {
             <ServiceSelector
               type={selectedServiceType}
               selectedServiceType={selectedServiceType}
-              onServiceSelect={handleServiceSelection}
-              onNext={handleNextStep}
+              onServiceSelect={(service) =>
+                dispatch(setSelectedServiceType(service))
+              }
+              onNext={() => dispatch(nextStep())}
               selectedOptions={selectedOptions}
-              onSelectedOptions={setSelectedOptions}
+              onSelectedOptions={(options) =>
+                dispatch(setSelectedOptions(options))
+              }
             />
           ) : step === 2 ? (
-            <StaffSelector  
-              onBack={handleBackStep} 
-              onNext={handleNextStep} 
+            <StaffSelector
+              onBack={() => dispatch(backStep())}
+              onNext={() => dispatch(nextStep())}
               selectedStaff={selectedStaff}
-              onStaffSelect={setSelectedStaff}  />
+              onStaffSelect={(staff) => dispatch(setSelectedStaff(staff))}
+            />
           ) : step === 3 ? (
-            <DayTime 
-              onBack={handleBackStep} 
-              onNext={handleNextStep} 
+            <DayTime
+              onBack={() => dispatch(backStep())}
+              onNext={() => dispatch(nextStep())}
               selectedDate={selectedDate}
-              onDateSelect={setSelectedDate} />
+              onDateSelect={(date) => dispatch(setSelectedDate(date))}
+            />
           ) : null}
         </Modal>
       </div>
