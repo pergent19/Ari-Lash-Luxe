@@ -1,28 +1,23 @@
 import React, { useEffect } from 'react';
 import Button from './Button/button';
 
-const ServiceSelector = ({type, selectedServiceType, onServiceSelect, onNext, selectedOptions, onSelectedOptions }) => {
+const ServiceSelector = React.memo(({ type, selectedServiceType, onServiceSelect, onNext, selectedOptions, onSelectedOptions }) => {
+    console.log("🚀 ServiceSelector component re-rendered");
+  
+    useEffect(() => {
+      console.log("🔥 ServiceSelector component mounted");
+    }, []);
 
   useEffect(() => {
-    console.log(type)
     onServiceSelect(type); 
   }, [type]);
 
   const handleServiceChange = (event) => {
-    console.log('triggered handleServiceChange from service selector?')
     const selectedValue = event.target.value;
     onServiceSelect(selectedValue);
     onSelectedOptions([]); 
   };
 
-  // const handleCheckboxChange = (event) => {
-  //   const value = event.target.value;
-  //   onSelectedOptions((prev) =>
-  //     prev.includes(value)
-  //       ? prev.filter((item) => item !== value)
-  //       : [...prev, value]
-  //   );
-  // };
 
   const handleCheckboxChange = (event) => {
     const value = event.target.value;
@@ -37,7 +32,7 @@ const ServiceSelector = ({type, selectedServiceType, onServiceSelect, onNext, se
   };
 
   const handleSubmit = () => {
-    onNext(); // Move to StaffSelector
+    onNext(); 
   };
 
   // Service options with hours and prices
@@ -111,6 +106,6 @@ const ServiceSelector = ({type, selectedServiceType, onServiceSelect, onNext, se
       </div>
     </div>
   );
-};
+});
 
 export default ServiceSelector;

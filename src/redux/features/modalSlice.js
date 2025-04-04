@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { parseISO } from "date-fns";
 
 const initialState = {
   isOpen: false,
@@ -11,6 +10,7 @@ const initialState = {
   selectedOptions: [],
   selectedStaff: null,
   selectedDate: new Date().toISOString(), // Store as an ISO string from the start,
+  selectedTime: null,
 };
 
 // Reset logic for closing modals
@@ -73,6 +73,9 @@ const modalSlice = createSlice({
     setSelectedDate: (state, action) => {
       state.selectedDate = action.payload;
     },
+    setSelectedTime: (state, action) => {
+      state.selectedTime = action.payload;
+    },
   },
 });
 
@@ -85,6 +88,7 @@ export const {
   setSelectedOptions,
   setSelectedStaff,
   setSelectedDate,
+  setSelectedTime,
   openLashModal,
   closeLashModal,
   openNailsModal,
