@@ -23,14 +23,6 @@ import {
 } from "../redux/features/modalSlice";
 
 const Landing = React.memo(() => {
-  //const [selectedTime, setSelectedTime] = useState(null);
-
-  console.log("🚀 Landing component re-rendered");
-  // console.log(selectedTime);
-
-  useEffect(() => {
-    console.log("🔥 Landing component mounted");
-  }, []);
 
   const dispatch = useDispatch();
   const {

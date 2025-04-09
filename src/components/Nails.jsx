@@ -5,12 +5,11 @@ import Modal from "./Modal/modal";
 import ServiceSelector from "./ServiceSelector";
 import StaffSelector from "./StaffSelector";
 import DayTime from "./DayTime";
+import Time from "./Time";
 
 import { useDispatch, useSelector } from "react-redux";
 
 import {
-  // openModal,
-  // closeModal,
   openNailsModal,
   closeNailsModal,
   nextStep,
@@ -19,6 +18,7 @@ import {
   setSelectedOptions,
   setSelectedStaff,
   setSelectedDate,
+  setSelectedTime,
 } from "../redux/features/modalSlice";
 
 export default function Nails() {
@@ -26,12 +26,12 @@ export default function Nails() {
   const dispatch = useDispatch();
 
   const {
-    // isOpen,
     step,
     selectedServiceType,
     selectedOptions,
     selectedStaff,
     selectedDate,
+    selectedTime,
     nailsModalOpen
   } = useSelector((state) => state.modal);
 
@@ -100,6 +100,13 @@ export default function Nails() {
               onNext={() => dispatch(nextStep())}
               selectedDate={selectedDate}
               onDateSelect={(date) => dispatch(setSelectedDate(date))}
+            />
+          ) : step === 4 ? (
+            <Time
+              selectedTime={selectedTime}
+              onTimeSelect={(time) => dispatch(setSelectedTime(time))}
+              onBack={() => dispatch(backStep())}
+              onNext={() => dispatch(nextStep())}
             />
           ) : null}
       </Modal>

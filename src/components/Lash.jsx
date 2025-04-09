@@ -5,6 +5,7 @@ import Modal from "./Modal/modal";
 import ServiceSelector from "./ServiceSelector";
 import StaffSelector from "./StaffSelector";
 import DayTime from "./DayTime";
+import Time from "./Time";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -15,6 +16,7 @@ import {
   setSelectedOptions,
   setSelectedStaff,
   setSelectedDate,
+  setSelectedTime,
   openLashModal,
   closeLashModal
 } from "../redux/features/modalSlice";
@@ -30,6 +32,7 @@ export default function Lash() {
       selectedOptions,
       selectedStaff,
       selectedDate,
+      selectedTime
     } = useSelector((state) => state.modal);
   
 
@@ -95,6 +98,13 @@ export default function Lash() {
               onNext={() => dispatch(nextStep())}
               selectedDate={selectedDate}
               onDateSelect={(date) => dispatch(setSelectedDate(date))}
+            />
+          ) : step === 4 ? (
+            <Time
+              selectedTime={selectedTime}
+              onTimeSelect={(time) => dispatch(setSelectedTime(time))}
+              onBack={() => dispatch(backStep())}
+              onNext={() => dispatch(nextStep())}
             />
           ) : null}
       </Modal>

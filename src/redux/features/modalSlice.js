@@ -19,6 +19,7 @@ const resetModalState = () => ({
   selectedStaff: null,
   selectedDate: new Date().toISOString(),
   selectedServiceType: "",
+  selectedTime: null,
   step: 1,
 });
 

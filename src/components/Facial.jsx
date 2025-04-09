@@ -5,18 +5,18 @@ import Modal from "./Modal/modal";
 import ServiceSelector from "./ServiceSelector";
 import StaffSelector from "./StaffSelector";
 import DayTime from "./DayTime";
+import Time from "./Time";
 
 import { useDispatch, useSelector } from "react-redux";
 
 import {
-  // openModal,
-  // closeModal,
   nextStep,
   backStep,
   setSelectedServiceType,
   setSelectedOptions,
   setSelectedStaff,
   setSelectedDate,
+  setSelectedTime,
   openFacialsModal,
   closeFacialsModal,
 } from "../redux/features/modalSlice";
@@ -33,6 +33,7 @@ export default function Facial() {
     selectedOptions,
     selectedStaff,
     selectedDate,
+    selectedTime,
   } = useSelector((state) => state.modal);
 
   return (
@@ -98,6 +99,13 @@ export default function Facial() {
               onNext={() => dispatch(nextStep())}
               selectedDate={selectedDate}
               onDateSelect={(date) => dispatch(setSelectedDate(date))}
+            />
+          ) : step === 4 ? (
+            <Time
+              selectedTime={selectedTime}
+              onTimeSelect={(time) => dispatch(setSelectedTime(time))}
+              onBack={() => dispatch(backStep())}
+              onNext={() => dispatch(nextStep())}
             />
           ) : null}
       </Modal>
