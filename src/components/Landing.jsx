@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useRef } from "react";
 import landing from "@/assets/images/landing.jpg";
 import Button from "./Button/button";
 import Modal from "./Modal/modal";
@@ -22,7 +22,11 @@ import {
 
 } from "../redux/features/modalSlice";
 
+import { motion, useInView } from 'motion/react'; 
+
 const Landing = React.memo(() => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
 
   const dispatch = useDispatch();
   const {
@@ -53,14 +57,22 @@ const Landing = React.memo(() => {
     [dispatch]
   );
 
+
   return (
     <>
       <div
+        id='landing'
         className="h-screen bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${landing})` }}
         data-testid="landing-container"
       >
-        <div className="flex flex-col justify-center items-start h-full landing space-y-8">
+        <motion.div 
+         className="flex flex-col justify-center items-start h-full landing space-y-8"
+         ref={ref}
+         initial={{ opacity: 0, y: 50 }}
+         animate={isInView ? { opacity: 1, y: 0 } : {}}
+         transition={{ duration: 1.2, ease: 'easeOut' }}
+         >
           <p className="text-white text-[20px]  md:text-[30px] inter-bold">
             WELCOME TO THE NEW ERA
           </p>
@@ -68,7 +80,7 @@ const Landing = React.memo(() => {
             LASHES IN MINUTES, <br /> NOT HOURS
           </h1>
           <Button text="BOOK NOW" href="#" onClick={handleOpenModal} />
-        </div>
+        </motion.div>
         {/* Modal Component */}
         <Modal
           isOpen={isOpen}

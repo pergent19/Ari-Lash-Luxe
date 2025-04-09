@@ -4,13 +4,15 @@ import React, { useState } from 'react';
 import { Dialog, DialogPanel } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import logo from '@/assets/images/logo.png';
+import { Link } from 'react-scroll';
+
 
 const navigation = [
-  { name: 'LASH EXTENSIONS', href: '#' },
-  { name: 'FACIALS', href: '#' },
-  { name: 'NAILS', href: '#' },
-  { name: 'GALLERY', href: '#' },
-  { name: 'FAQ', href: '#' },
+  { name: 'LASH EXTENSIONS', to: 'lash-extensions' },
+  { name: 'FACIALS', to: 'facials' },  
+  { name: 'NAILS', to: 'nails' },     
+  { name: 'GALLERY', to: 'gallery' },  
+  { name: 'FAQ', to: 'faq' },        
 ];
 
 export default function Navbar() {
@@ -38,9 +40,15 @@ export default function Navbar() {
           </div>
           <div className="hidden lg:flex lg:gap-x-12">
             {navigation.map((item) => (
-              <a key={item.name} href={item.href} className="text-sm/6 font-semibold text-gray-900">
-                {item.name}
-              </a>
+              <Link
+              key={item.name}
+              to={item.to}
+              smooth={true}
+              duration={800}
+              className="text-sm/6 font-semibold text-gray-900"
+            >
+              {item.name}
+            </Link>
             ))}
           </div>
         </nav>
@@ -65,13 +73,15 @@ export default function Navbar() {
               <div className="-my-6 divide-y divide-gray-500/10">
                 <div className="space-y-2 py-6">
                   {navigation.map((item) => (
-                    <a
-                      key={item.name}
-                      href={item.href}
-                      className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
-                    >
-                      {item.name}
-                    </a>
+                    <Link
+                    key={item.name}
+                    to={item.to}
+                    smooth={true} 
+                    duration={800}
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
+                  >
+                    {item.name}
+                  </Link>
                   ))}
                 </div>
               </div>

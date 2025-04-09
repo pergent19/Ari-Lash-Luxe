@@ -5,6 +5,7 @@ import Button from './Button/button'
 export default function Faq() {
   return (
         <div
+          id='faq'
           data-testid="faqs-container"
           className="h-screen bg-cover bg-no-repeat bg-[50%_30%] flex flex-col justify-end items-center"
           style={{ backgroundImage: `url(${faq})` }}

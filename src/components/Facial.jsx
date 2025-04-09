@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import facial from "@/assets/images/facial.jpg";
 import Button from "./Button/button";
 import Modal from "./Modal/modal";
@@ -21,12 +21,16 @@ import {
   closeFacialsModal,
 } from "../redux/features/modalSlice";
 
+import { motion, useInView } from 'motion/react'; 
+
 export default function Facial() {
+
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
 
   const dispatch = useDispatch();
 
   const {
-    //isOpen,
     facialsModalOpen,
     step,
     selectedServiceType,
@@ -37,7 +41,7 @@ export default function Facial() {
   } = useSelector((state) => state.modal);
 
   return (
-    <div className="h-screen flex flex-col-reverse md:flex-row">
+    <div className="h-screen flex flex-col-reverse md:flex-row" id="facials">
       {/* left Column (40%) */}
       <div
         className="w-full md:w-[40%] h-full md:h-auto bg-cover bg-center bg-no-repeat"
@@ -45,7 +49,13 @@ export default function Facial() {
         data-testid="facial-bg"
       ></div>
       {/* right Column (60%) */}
-      <div className="w-full md:w-[60%] flex flex-col items-center justify-center space-y-4 px-4 md:px-8 py-20 md:py-8">
+      <motion.div 
+      className="w-full md:w-[60%] flex flex-col items-center justify-center space-y-4 px-4 md:px-8 py-20 md:py-8"
+      ref={ref}
+      initial={{ opacity: 0, x: 100 }}
+      animate={isInView ? { opacity: 1, x: 0 } : {}}
+      transition={{ duration: 1.2, ease: 'easeOut' }}
+      >
         <h2 className="text-[14px] md:text-[24px] inter-bold">FACIALS</h2>
         <h2 className="text-[20px] md:text-[27px] text-center romanesco-regular">
           Revitalize your skin with facials designed to <br /> cleanse, hydrate,
@@ -56,7 +66,7 @@ export default function Facial() {
           href="#"
           onClick={() => dispatch(openFacialsModal())}
         />
-      </div>
+      </motion.div>
 
       {/* Modal Component */}
       <Modal
