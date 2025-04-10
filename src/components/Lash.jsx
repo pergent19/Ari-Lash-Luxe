@@ -18,38 +18,36 @@ import {
   setSelectedDate,
   setSelectedTime,
   openLashModal,
-  closeLashModal
+  closeLashModal,
 } from "../redux/features/modalSlice";
 
-import { motion, useInView } from 'motion/react'; 
+import { motion, useInView } from "motion/react";
 
 export default function Lash() {
-
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
 
   const dispatch = useDispatch();
 
   const {
-      lashModalOpen,
-      step,
-      selectedServiceType,
-      selectedOptions,
-      selectedStaff,
-      selectedDate,
-      selectedTime
+    lashModalOpen,
+    step,
+    selectedServiceType,
+    selectedOptions,
+    selectedStaff,
+    selectedDate,
+    selectedTime,
   } = useSelector((state) => state.modal);
-  
 
   return (
     <div className="h-screen flex flex-col md:flex-row" id="lash-extensions">
       {/* Left Column */}
-      <motion.div 
-      className="w-full md:w-[40%] flex flex-col items-center justify-center space-y-4 px-4 md:px-8 py-20 md:py-8"
-      ref={ref}
-      initial={{ opacity: 0, x: -100 }}
-      animate={isInView ? { opacity: 1, x: 0 } : {}}
-      transition={{ duration: 1.2, ease: 'easeOut' }}
+      <motion.div
+        className="w-full md:w-[40%] flex flex-col items-center justify-center space-y-4 px-4 md:px-8 py-20 md:py-8"
+        ref={ref}
+        initial={{ opacity: 0, x: -100 }}
+        animate={isInView ? { opacity: 1, x: 0 } : {}}
+        transition={{ duration: 1.2, ease: "easeOut" }}
       >
         <h2 className="text-[14px] md:text-[24px] inter-bold text-center">
           LASH EXTENSION
@@ -58,7 +56,11 @@ export default function Lash() {
           Enhance your beauty with lush, customized <br /> lash extensions for a
           flawless look.
         </h2>
-        <Button text="BOOK NOW" href="#"  onClick={() => dispatch(openLashModal())} />
+        <Button
+          text="BOOK NOW"
+          href="#"
+          onClick={() => dispatch(openLashModal())}
+        />
       </motion.div>
 
       {/* Right Column (with background image) */}
@@ -83,6 +85,12 @@ export default function Lash() {
         }
         description="SELECT SERVICES"
       >
+        <motion.div
+          key={step} // This makes it re-animate when step changes
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.4, easing: "ease-in-out" }}
+        >
           {step === 1 ? (
             <ServiceSelector
               type="lash"
@@ -118,6 +126,7 @@ export default function Lash() {
               onNext={() => dispatch(nextStep())}
             />
           ) : null}
+        </motion.div>
       </Modal>
     </div>
   );

@@ -21,10 +21,9 @@ import {
   closeFacialsModal,
 } from "../redux/features/modalSlice";
 
-import { motion, useInView } from 'motion/react'; 
+import { motion, useInView } from "motion/react";
 
 export default function Facial() {
-
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
 
@@ -49,12 +48,12 @@ export default function Facial() {
         data-testid="facial-bg"
       ></div>
       {/* right Column (60%) */}
-      <motion.div 
-      className="w-full md:w-[60%] flex flex-col items-center justify-center space-y-4 px-4 md:px-8 py-20 md:py-8"
-      ref={ref}
-      initial={{ opacity: 0, x: 100 }}
-      animate={isInView ? { opacity: 1, x: 0 } : {}}
-      transition={{ duration: 1.2, ease: 'easeOut' }}
+      <motion.div
+        className="w-full md:w-[60%] flex flex-col items-center justify-center space-y-4 px-4 md:px-8 py-20 md:py-8"
+        ref={ref}
+        initial={{ opacity: 0, x: 100 }}
+        animate={isInView ? { opacity: 1, x: 0 } : {}}
+        transition={{ duration: 1.2, ease: "easeOut" }}
       >
         <h2 className="text-[14px] md:text-[24px] inter-bold">FACIALS</h2>
         <h2 className="text-[20px] md:text-[27px] text-center romanesco-regular">
@@ -83,7 +82,13 @@ export default function Facial() {
         }
         description="SELECT SERVICES"
       >
-        {step === 1 ? (
+        <motion.div
+          key={step} // This makes it re-animate when step changes
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.4, easing: "ease-in-out" }}
+        >
+          {step === 1 ? (
             <ServiceSelector
               type="facials"
               selectedServiceType={selectedServiceType}
@@ -118,6 +123,7 @@ export default function Facial() {
               onNext={() => dispatch(nextStep())}
             />
           ) : null}
+        </motion.div>
       </Modal>
     </div>
   );

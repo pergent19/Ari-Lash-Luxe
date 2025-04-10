@@ -18,11 +18,10 @@ import {
   setSelectedOptions,
   setSelectedStaff,
   setSelectedDate,
-  setSelectedTime
-
+  setSelectedTime,
 } from "../redux/features/modalSlice";
 
-import { motion, useInView } from 'motion/react'; 
+import { motion, useInView } from "motion/react";
 
 const Landing = React.memo(() => {
   const ref = useRef(null);
@@ -36,7 +35,7 @@ const Landing = React.memo(() => {
     selectedOptions,
     selectedStaff,
     selectedDate,
-    selectedTime
+    selectedTime,
   } = useSelector((state) => state.modal);
 
   const handleOpenModal = useCallback(() => {
@@ -57,22 +56,21 @@ const Landing = React.memo(() => {
     [dispatch]
   );
 
-
   return (
     <>
       <div
-        id='landing'
+        id="landing"
         className="h-screen bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${landing})` }}
         data-testid="landing-container"
       >
-        <motion.div 
-         className="flex flex-col justify-center items-start h-full landing space-y-8"
-         ref={ref}
-         initial={{ opacity: 0, y: 50 }}
-         animate={isInView ? { opacity: 1, y: 0 } : {}}
-         transition={{ duration: 1.2, ease: 'easeOut' }}
-         >
+        <motion.div
+          className="flex flex-col justify-center items-start h-full landing space-y-8"
+          ref={ref}
+          initial={{ opacity: 0, y: 50 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 1.2, ease: "easeOut" }}
+        >
           <p className="text-white text-[20px]  md:text-[30px] inter-bold">
             WELCOME TO THE NEW ERA
           </p>
@@ -104,37 +102,44 @@ const Landing = React.memo(() => {
               : ""
           }
         >
-          {step === 1 ? (
-            <ServiceSelector
-              type={selectedServiceType}
-              selectedServiceType={selectedServiceType}
-              onServiceSelect={handleServiceSelect}
-              onNext={() => dispatch(nextStep())}
-              selectedOptions={selectedOptions}
-              onSelectedOptions={handleSelectedOptions}
-            />
-          ) : step === 2 ? (
-            <StaffSelector
-              onBack={() => dispatch(backStep())}
-              onNext={() => dispatch(nextStep())}
-              selectedStaff={selectedStaff}
-              onStaffSelect={(staff) => dispatch(setSelectedStaff(staff))}
-            />
-          ) : step === 3 ? (
-            <DayTime
-              onBack={() => dispatch(backStep())}
-              onNext={() => dispatch(nextStep())}
-              selectedDate={selectedDate}
-              onDateSelect={(date) => dispatch(setSelectedDate(date))}
-            />
-          ) : step === 4 ? (
-            <Time
-              selectedTime={selectedTime}
-              onTimeSelect={(time) => dispatch(setSelectedTime(time))}
-              onBack={() => dispatch(backStep())}
-              onNext={() => dispatch(nextStep())}
-            />
-          ) : null}
+          <motion.div
+            key={step} // This makes it re-animate when step changes
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.4, easing: "ease-in-out" }}
+          >
+            {step === 1 ? (
+              <ServiceSelector
+                type={selectedServiceType}
+                selectedServiceType={selectedServiceType}
+                onServiceSelect={handleServiceSelect}
+                onNext={() => dispatch(nextStep())}
+                selectedOptions={selectedOptions}
+                onSelectedOptions={handleSelectedOptions}
+              />
+            ) : step === 2 ? (
+              <StaffSelector
+                onBack={() => dispatch(backStep())}
+                onNext={() => dispatch(nextStep())}
+                selectedStaff={selectedStaff}
+                onStaffSelect={(staff) => dispatch(setSelectedStaff(staff))}
+              />
+            ) : step === 3 ? (
+              <DayTime
+                onBack={() => dispatch(backStep())}
+                onNext={() => dispatch(nextStep())}
+                selectedDate={selectedDate}
+                onDateSelect={(date) => dispatch(setSelectedDate(date))}
+              />
+            ) : step === 4 ? (
+              <Time
+                selectedTime={selectedTime}
+                onTimeSelect={(time) => dispatch(setSelectedTime(time))}
+                onBack={() => dispatch(backStep())}
+                onNext={() => dispatch(nextStep())}
+              />
+            ) : null}
+          </motion.div>
         </Modal>
       </div>
     </>
