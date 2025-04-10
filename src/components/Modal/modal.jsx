@@ -10,7 +10,6 @@ const Modal = ({ isOpen, onClose, title, description, children }) => {
       {isOpen && (
         <motion.div
           className="modal-overlay"
-          onClick={onClose}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}

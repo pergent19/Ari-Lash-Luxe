@@ -51,8 +51,8 @@ export default function Facial() {
       <motion.div
         className="w-full md:w-[60%] flex flex-col items-center justify-center space-y-4 px-4 md:px-8 py-20 md:py-8"
         ref={ref}
-        initial={{ opacity: 0, x: 100 }}
-        animate={isInView ? { opacity: 1, x: 0 } : {}}
+        initial={{ opacity: 0, y: 100 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 1.2, ease: "easeOut" }}
       >
         <h2 className="text-[14px] md:text-[24px] inter-bold">FACIALS</h2>
