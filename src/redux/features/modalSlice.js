@@ -51,13 +51,14 @@ const modalSlice = createSlice({
       const isSuccess = action.payload === "success";
     
       if (isSuccess) {
-        state.isSuccess = true;
-    
+      
         // Close any open modal
         state.isOpen = false;
         state.lashModalOpen = false;
         state.nailsModalOpen = false;
         state.facialsModalOpen = false;
+        
+        state.isSuccess = true;
     
       } else {
         state.isOpen = true;

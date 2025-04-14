@@ -83,10 +83,14 @@ const Landing = React.memo(() => {
         </motion.div>
         {/* Modal Component */}
         <Modal
-          isOpen={isOpen}
-          onClose={() => dispatch(closeModal())}
+          isOpen={isOpen || isSuccess}
+          onClose={() =>
+            dispatch(closeModal(isSuccess ? "success" : undefined))
+          }
           title={
-            selectedServiceType === "nails"
+            isSuccess
+              ? ""
+              : selectedServiceType === "nails"
               ? "NAILS"
               : selectedServiceType === "lash"
               ? "LASH EXTENSIONS"
@@ -95,65 +99,64 @@ const Landing = React.memo(() => {
               : "ARI LASH LUXE"
           }
           description={
-            step === 1
+            isSuccess
+              ? ""
+              : step === 1
               ? "SELECT SERVICES"
               : step === 2
-              ? "PREFERED STAFF"
+              ? "PREFERRED STAFF"
               : step === 3 || step === 4
               ? "DAY AND TIME"
               : ""
           }
         >
-          <motion.div
-            key={step} // This makes it re-animate when step changes
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.4, easing: "ease-in-out" }}
-          >
-            {step === 1 ? (
-              <ServiceSelector
-                type={selectedServiceType}
-                selectedServiceType={selectedServiceType}
-                onServiceSelect={handleServiceSelect}
-                onNext={() => dispatch(nextStep())}
-                selectedOptions={selectedOptions}
-                onSelectedOptions={handleSelectedOptions}
-              />
-            ) : step === 2 ? (
-              <StaffSelector
-                onBack={() => dispatch(backStep())}
-                onNext={() => dispatch(nextStep())}
-                selectedStaff={selectedStaff}
-                onStaffSelect={(staff) => dispatch(setSelectedStaff(staff))}
-              />
-            ) : step === 3 ? (
-              <DayTime
-                onBack={() => dispatch(backStep())}
-                onNext={() => dispatch(nextStep())}
-                selectedDate={selectedDate}
-                onDateSelect={(date) => dispatch(setSelectedDate(date))}
-              />
-            ) : step === 4 ? (
-              <Time
-                selectedTime={selectedTime}
-                onTimeSelect={(time) => dispatch(setSelectedTime(time))}
-                onBack={() => dispatch(backStep())}
-                onNext={() => dispatch(nextStep())}
-              />
-            ) : null}
-          </motion.div>
-        </Modal>
-
-        <Modal
-          isOpen={isSuccess}
-          onClose={() => dispatch(closeModal("success"))}
-        >
-          <SuccessContent
-            selectedServiceType={selectedOptions}
-            selectedStaff={selectedStaff}
-            selectedDate={selectedDate}
-            selectedTime={selectedTime}
-          />
+          {isSuccess ? (
+            <SuccessContent
+              selectedServiceType={selectedOptions}
+              selectedStaff={selectedStaff}
+              selectedDate={selectedDate}
+              selectedTime={selectedTime}
+            />
+          ) : (
+            <motion.div
+              key={step} // Keeps animation per step
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.4, easing: "ease-in-out" }}
+            >
+              {step === 1 ? (
+                <ServiceSelector
+                  type={selectedServiceType}
+                  selectedServiceType={selectedServiceType}
+                  onServiceSelect={handleServiceSelect}
+                  onNext={() => dispatch(nextStep())}
+                  selectedOptions={selectedOptions}
+                  onSelectedOptions={handleSelectedOptions}
+                />
+              ) : step === 2 ? (
+                <StaffSelector
+                  onBack={() => dispatch(backStep())}
+                  onNext={() => dispatch(nextStep())}
+                  selectedStaff={selectedStaff}
+                  onStaffSelect={(staff) => dispatch(setSelectedStaff(staff))}
+                />
+              ) : step === 3 ? (
+                <DayTime
+                  onBack={() => dispatch(backStep())}
+                  onNext={() => dispatch(nextStep())}
+                  selectedDate={selectedDate}
+                  onDateSelect={(date) => dispatch(setSelectedDate(date))}
+                />
+              ) : step === 4 ? (
+                <Time
+                  selectedTime={selectedTime}
+                  onTimeSelect={(time) => dispatch(setSelectedTime(time))}
+                  onBack={() => dispatch(backStep())}
+                  onNext={() => dispatch(nextStep())}
+                />
+              ) : null}
+            </motion.div>
+          )}
         </Modal>
       </div>
     </>
