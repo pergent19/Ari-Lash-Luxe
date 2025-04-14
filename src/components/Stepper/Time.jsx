@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Button from "./Button/button";
+import Button from "../Button/button";
 
 const Time = ({ selectedTime, onTimeSelect, onBack, onNext }) => {
   const morningTimes = generateTimeSlots(8, 12); // 8:00 AM - 11:45 AM

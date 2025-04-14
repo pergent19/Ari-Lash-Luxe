@@ -1,12 +1,7 @@
 import React, { useEffect } from 'react';
-import Button from './Button/button';
+import Button from '../Button/button';
 
 const ServiceSelector = React.memo(({ type, selectedServiceType, onServiceSelect, onNext, selectedOptions, onSelectedOptions }) => {
-    console.log("🚀 ServiceSelector component re-rendered");
-  
-    useEffect(() => {
-      console.log("🔥 ServiceSelector component mounted");
-    }, []);
 
   useEffect(() => {
     onServiceSelect(type); 

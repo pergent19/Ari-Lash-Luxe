@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   format,
   addMonths,
@@ -11,7 +11,7 @@ import {
   getDay,
   isSameDay,
 } from "date-fns";
-import Button from "./Button/button";
+import Button from "../Button/button";
 
 const weekdays = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 

@@ -2,10 +2,10 @@ import React, { useRef } from "react";
 import nails from "@/assets/images/nails.jpg";
 import Button from "./Button/button";
 import Modal from "./Modal/modal";
-import ServiceSelector from "./ServiceSelector";
-import StaffSelector from "./StaffSelector";
-import DayTime from "./DayTime";
-import Time from "./Time";
+import ServiceSelector from "./Stepper/ServiceSelector";
+import StaffSelector from "./Stepper/StaffSelector";
+import DayTime from "./Stepper/DayTime";
+import Time from "./Stepper/Time";
 
 import { useDispatch, useSelector } from "react-redux";
 
