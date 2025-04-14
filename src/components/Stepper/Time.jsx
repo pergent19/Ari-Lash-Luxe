@@ -1,7 +1,20 @@
-import React, { useState } from "react";
+import React, {useCallback} from "react";
 import Button from "../Button/button";
+import { useDispatch } from "react-redux";
+
+import {
+  openModal
+} from "../../redux/features/modalSlice";
+
 
 const Time = ({ selectedTime, onTimeSelect, onBack, onNext }) => {
+
+  const dispatch = useDispatch();
+
+   const handleOpenModal = useCallback(() => {
+    dispatch(openModal("success"));
+  }, [dispatch]);
+
   const morningTimes = generateTimeSlots(8, 12); // 8:00 AM - 11:45 AM
   const afternoonTimes = generateTimeSlots(13, 18); // 1:00 PM - 5:45 PM
 
@@ -64,7 +77,7 @@ const Time = ({ selectedTime, onTimeSelect, onBack, onNext }) => {
       </div>
       <div className="flex justify-center mt-5">
         <Button text="BACK" className="w-1/2 bg-gray-300 text-white" onClick={ () => onBack()} />
-        <Button text="COMPLETE" className="w-1/2" />
+        <Button text="COMPLETE" className="w-1/2" onClick={handleOpenModal} />
       </div>
     </>
   );

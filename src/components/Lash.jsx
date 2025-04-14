@@ -6,6 +6,7 @@ import ServiceSelector from "./Stepper/ServiceSelector";
 import StaffSelector from "./Stepper/StaffSelector";
 import DayTime from "./Stepper/DayTime";
 import Time from "./Stepper/Time";
+import SuccessContent from "./Modal/Content/SuccessContent";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -19,6 +20,7 @@ import {
   setSelectedTime,
   openLashModal,
   closeLashModal,
+  closeModal,
 } from "../redux/features/modalSlice";
 
 import { motion, useInView } from "motion/react";
@@ -37,6 +39,7 @@ export default function Lash() {
     selectedStaff,
     selectedDate,
     selectedTime,
+    isSuccess,
   } = useSelector((state) => state.modal);
 
   return (
@@ -86,7 +89,7 @@ export default function Lash() {
         description="SELECT SERVICES"
       >
         <motion.div
-          key={step} // This makes it re-animate when step changes
+          key={step}
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.4, easing: "ease-in-out" }}
@@ -127,6 +130,15 @@ export default function Lash() {
             />
           ) : null}
         </motion.div>
+      </Modal>
+
+      <Modal isOpen={isSuccess} onClose={() => dispatch(closeModal("success"))}>
+        <SuccessContent
+          selectedServiceType={selectedOptions}
+          selectedStaff={selectedStaff}
+          selectedDate={selectedDate}
+          selectedTime={selectedTime}
+        />
       </Modal>
     </div>
   );

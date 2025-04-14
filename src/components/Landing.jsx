@@ -6,6 +6,7 @@ import ServiceSelector from "./Stepper/ServiceSelector";
 import StaffSelector from "./Stepper/StaffSelector";
 import DayTime from "./Stepper/DayTime";
 import Time from "./Stepper/Time";
+import SuccessContent from "./Modal/Content/SuccessContent";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -36,6 +37,7 @@ const Landing = React.memo(() => {
     selectedStaff,
     selectedDate,
     selectedTime,
+    isSuccess,
   } = useSelector((state) => state.modal);
 
   const handleOpenModal = useCallback(() => {
@@ -140,6 +142,18 @@ const Landing = React.memo(() => {
               />
             ) : null}
           </motion.div>
+        </Modal>
+
+        <Modal
+          isOpen={isSuccess}
+          onClose={() => dispatch(closeModal("success"))}
+        >
+          <SuccessContent
+            selectedServiceType={selectedOptions}
+            selectedStaff={selectedStaff}
+            selectedDate={selectedDate}
+            selectedTime={selectedTime}
+          />
         </Modal>
       </div>
     </>

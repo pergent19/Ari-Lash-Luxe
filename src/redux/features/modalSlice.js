@@ -11,6 +11,7 @@ const initialState = {
   selectedStaff: null,
   selectedDate: new Date().toISOString(), // Store as an ISO string from the start,
   selectedTime: null,
+  isSuccess: false
 };
 
 // Reset logic for closing modals
@@ -27,13 +28,51 @@ const modalSlice = createSlice({
   name: "modal",
   initialState,
   reducers: {
-    openModal: (state) => {
-      state.isOpen = true;
-      state.step = 1;
+    // openModal: (state, action) => {
+    //   if(action.payload === "success") {
+    //     state.isSuccess = true;
+    //     if (state.isOpen) {
+    //       state.isOpen = false;
+    //     } else if (state.lashModalOpen) {
+    //       state.lashModalOpen = false;
+    //     }
+    //     else if (state.nailsModalOpen) {
+    //       state.nailsModalOpen = false;
+    //     }
+    //     else if (state.facialsModalOpen) {
+    //       state.facialsModalOpen = false;
+    //     }   
+    //   } else {
+    //     state.isOpen = true;
+    //     state.step = 1;
+    //   }
+    // },
+    openModal: (state, action) => {
+      const isSuccess = action.payload === "success";
+    
+      if (isSuccess) {
+        state.isSuccess = true;
+    
+        // Close any open modal
+        state.isOpen = false;
+        state.lashModalOpen = false;
+        state.nailsModalOpen = false;
+        state.facialsModalOpen = false;
+    
+      } else {
+        state.isOpen = true;
+        state.step = 1;
+      }
     },
-    closeModal: (state) => {
-      state.isOpen = false;
-      Object.assign(state, resetModalState());
+    closeModal: (state, action) => {
+      if(action.payload === "success") {
+        state.isSuccess = false;
+        Object.assign(state, resetModalState());
+      } else {
+        state.isOpen = false;
+
+        Object.assign(state, resetModalState());
+      }
     },
     openLashModal: (state) => {
       state.lashModalOpen = true;
@@ -76,7 +115,7 @@ const modalSlice = createSlice({
     },
     setSelectedTime: (state, action) => {
       state.selectedTime = action.payload;
-    },
+    }
   },
 });
 

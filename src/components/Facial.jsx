@@ -6,6 +6,7 @@ import ServiceSelector from "./Stepper/ServiceSelector";
 import StaffSelector from "./Stepper/StaffSelector";
 import DayTime from "./Stepper/DayTime";
 import Time from "./Stepper/Time";
+import SuccessContent from "./Modal/Content/SuccessContent";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -19,6 +20,7 @@ import {
   setSelectedTime,
   openFacialsModal,
   closeFacialsModal,
+  closeModal,
 } from "../redux/features/modalSlice";
 
 import { motion, useInView } from "motion/react";
@@ -37,6 +39,7 @@ export default function Facial() {
     selectedStaff,
     selectedDate,
     selectedTime,
+    isSuccess,
   } = useSelector((state) => state.modal);
 
   return (
@@ -124,6 +127,15 @@ export default function Facial() {
             />
           ) : null}
         </motion.div>
+      </Modal>
+
+      <Modal isOpen={isSuccess} onClose={() => dispatch(closeModal("success"))}>
+        <SuccessContent
+          selectedServiceType={selectedOptions}
+          selectedStaff={selectedStaff}
+          selectedDate={selectedDate}
+          selectedTime={selectedTime}
+        />
       </Modal>
     </div>
   );

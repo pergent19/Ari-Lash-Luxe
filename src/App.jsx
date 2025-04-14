@@ -1,5 +1,5 @@
 import './App.css'
-import Navbar from './components/header/navbar'
+import Navbar from './components/header/Navbar'
 import Landing from './components/Landing'
 import Gallery from './components/Gallery'
 import Lash from './components/Lash'
